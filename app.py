@@ -7,14 +7,14 @@ import re
 import numpy as np
 
 # Keras
-from keras.applications.imagenet_utils import preprocess_input, decode_predictions
-from keras.models import load_model
-from keras.preprocessing import image
+from tensorflow.keras.applications.imagenet_utils import preprocess_input, decode_predictions
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing import image
 
 # Flask utils
 from flask import Flask, redirect, url_for, request, render_template
 from werkzeug.utils import secure_filename
-#from gevent.pywsgi import WSGIServer
+from gevent.pywsgi import WSGIServer
 
 # Define a flask app
 app = Flask(__name__)
@@ -22,7 +22,7 @@ app = Flask(__name__)
 # Model saved with Keras model.save()
 MODEL_PATH = 'models/model_resnet.h5'
 print(" MODEL_PATH :",MODEL_PATH)
-
+    
 
 def model_predict(img_path, model):
     img = image.load_img(img_path, 
@@ -62,7 +62,7 @@ def upload():
         # Load your trained model
         model = load_model(MODEL_PATH)
         print("*** Model Loaded ***")
-        model._make_predict_function()
+        #model._make_predict_function()
 
         # Make prediction
         preds = model_predict(file_path, model)
